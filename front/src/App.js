@@ -6,7 +6,6 @@ import "./index.css";
 import egypt2 from "./images/egpyt2.jpg";
 
 import ReactDOM from "react-dom";
-import "./index.css";
 import UserList from "./UserList";
 import React, { useState, useEffect, createContext, useReducer } from "react";
 

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 
 const { connectToDB } = require('./db')
 const userRoutes = require("./routes/userRoutes")
+const cityRoutes = require("./routes/cityRoutes")
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(express.json())
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use("/api/users", userRoutes)
+app.use("/api/cities", cityRoutes)
 
 const port = process.env.PORT || 3000
 

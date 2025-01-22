@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createUser } from "../../api/userApi";
+import "./Form.scss";
 
 const UserForm = ({ onUserAdded }) => {
   const [newUser, setNewUser] = useState({ name: "", email: "" });
@@ -20,13 +21,14 @@ const UserForm = ({ onUserAdded }) => {
   };
 
   return (
-    <form onSubmit={handleAddUser}>
+    <form onSubmit={handleAddUser}  className="form-container">
       <input
         type="text"
         name="name"
         placeholder="Name"
         value={newUser.name}
         onChange={handleInputChange}
+        className="form-input"
       />
       <input
         type="email"
@@ -34,8 +36,9 @@ const UserForm = ({ onUserAdded }) => {
         placeholder="Email"
         value={newUser.email}
         onChange={handleInputChange}
+        className="form-input"
       />
-      <button type="submit">Add User</button>
+      <button type="submit" className="form-button">Add User</button>
     </form>
   );
 };

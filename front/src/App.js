@@ -1,23 +1,17 @@
-import egypt1 from "./images/egypt1.jpg";
 import "./App.scss";
-import Egypt from "./Egypt";
-
-import "./index.css";
-import egypt2 from "./images/egpyt2.jpg";
-
-import UserList from "./UserList";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserList from "./components/UserList/UserList";
+import UserDetails from "./components/UserDetails/UserDetails";
 
 function App() {
   return (
-    <div>
-      <Egypt />
-      <img src={egypt1} alt="Logo" />
-      <img src={egypt2} alt="Logo" />
-      <UserList />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<UserList />} />
+        <Route path="/users/:userId" element={<UserDetails />} />
+      </Routes>
+    </Router>
   );
 }
-
-
 
 export default App;

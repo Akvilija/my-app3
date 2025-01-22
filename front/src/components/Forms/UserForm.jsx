@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createUser } from "../api/userApi";
+import { createUser } from "../../api/userApi";
 
 const UserForm = ({ onUserAdded }) => {
   const [newUser, setNewUser] = useState({ name: "", email: "" });

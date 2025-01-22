@@ -1,12 +1,13 @@
-import "./App.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UsersPage from "./pages/UsersPage"; // Page for listing all users
-import UserPage from "./pages/UserPage"; // Page for viewing a single user and their cities
+import UsersPage from "./pages/UsersPage"; 
+import UserPage from "./pages/UserPage"; 
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <Header />
         <Routes>
           <Route path="/users" element={<UsersPage />} /> 
           <Route path="/users/:userId" element={<UserPage />} /> 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserById } from "../api/userApi";  // Ensure this function is defined in userApi.js
-import { getCities } from "../api/cityApi";    // Ensure this function is defined in cityApi.js
+import { getUserById } from "../../api/userApi";  // Ensure this function is defined in userApi.js
+import { getCities } from "../../api/cityApi";    // Ensure this function is defined in cityApi.js
 
 const UserDetails = () => {
   const { userId } = useParams(); // Extract userId from the URL

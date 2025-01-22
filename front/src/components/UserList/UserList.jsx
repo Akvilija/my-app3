@@ -19,7 +19,7 @@ function UserList() {
         <div key={user._id}>
           <h3>{user.name}</h3>
           <p>{user.city}</p>
-          <Link to={`/user/${user._id}`}>View Details</Link>
+          <Link to={`/users/${user._id}`}>View Details</Link>
         </div>
       ))}
     </div>

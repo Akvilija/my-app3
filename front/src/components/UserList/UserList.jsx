@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import UserItem from "./UserItem"; // Import UserItem component
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -16,11 +16,7 @@ function UserList() {
     <div>
       <h2>User List</h2>
       {users.map((user) => (
-        <div key={user._id}>
-          <h3>{user.name}</h3>
-          <p>{user.city}</p>
-          <Link to={`/users/${user._id}`}>View Details</Link>
-        </div>
+        <UserItem key={user._id} user={user} /> // Render UserItem component for each user
       ))}
     </div>
   );

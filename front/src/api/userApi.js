@@ -21,6 +21,16 @@ export const getUserById = async (userId) => {
   }
 };
 
+export const createUser = async (userData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/users`, userData); 
+    return response.data; 
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error; 
+  }
+};
+
 export const deleteUser = async (userId) => {
   try {
     await axios.delete(`${BASE_URL}/users/${userId}`);

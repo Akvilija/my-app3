@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../api/userApi";
 import { getCities } from "../api/cityApi";
-import CityForm from "../components/CityForm";
+import CityForm from "../components/Forms/CityForm";
 
 const UserPage = () => {
   const { userId } = useParams();

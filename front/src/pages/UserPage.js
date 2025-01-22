@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getUserById } from "../api/userApi";
-import { getCities } from "../api/cityApi";
+import { getCities, deleteCity } from "../api/cityApi"; // Added deleteCity
 import CityForm from "../components/Forms/CityForm";
+import CitiesList from "../components/CitiesList/CitiesList";
 
 const UserPage = () => {
   const { userId } = useParams();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserAndCities = async () => {
@@ -20,6 +23,8 @@ const UserPage = () => {
         setCities(userCities);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -30,21 +35,42 @@ const UserPage = () => {
     setCities((prevCities) => [...prevCities, newCity]);
   };
 
-  if (!user) return <p>Loading user details...</p>;
+  const handleCityDeleted = async (cityId) => {
+    try {
+      await deleteCity(cityId); // Call the delete API
+      setCities((prevCities) => prevCities.filter((city) => city._id !== cityId));
+    } catch (error) {
+      console.error("Error deleting city:", error);
+    }
+  };
+
+  if (loading) return <p>Loading user data...</p>;
+
+  if (!user) return (
+    <>
+      <p>User not found.</p>
+      <button
+        onClick={() => navigate(-1)}
+        className="back-button"
+      >
+        Back
+      </button>
+    </>
+  );
+
 
   return (
     <div>
-      <h1>{user.name}'s Details</h1>
+      <h1>{user.name}</h1>
       <p>Email: {user.email}</p>
-      <h2>Cities</h2>
       <CityForm userId={userId} onCityAdded={handleCityAdded} />
-      <ul>
-        {cities.map((city) => (
-          <li key={city._id}>
-            {city.name} - {city.description}
-          </li>
-        ))}
-      </ul>
+      <CitiesList cities={cities} onDelete={handleCityDeleted} />
+      <button
+        onClick={() => navigate(-1)}
+        className="back-button"
+      >
+        Back
+      </button>
     </div>
   );
 };

@@ -20,3 +20,13 @@ export const createCity = async (cityData) => {
     throw error; // Re-throw the error for handling in the calling code
   }
 };
+
+export const deleteCity = async (cityId) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/cities/${cityId}`);
+    return response;
+  } catch (error) {
+    console.error(`Error deleting city with ID ${cityId}:`, error);
+    throw error;
+  }
+};

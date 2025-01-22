@@ -68,7 +68,7 @@ async function deleteCity(id) {
   try {
     const db = getDB();
     const collection = db.collection("city");
-    const result = await collection.deleteOne({ _id: ObjectId(id) });
+    const result = await collection.deleteOne({ _id: ObjectId.createFromHexString(id) });
 
     if (result.deletedCount === 0) {
       throw new Error("City not found");

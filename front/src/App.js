@@ -3,6 +3,7 @@ import UsersPage from "./pages/UsersPage";
 import UserPage from "./pages/UserPage"; 
 import Header from "./components/Header/Header";
 import "./App.css";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/users" element={<UsersPage />} /> 
           <Route path="/users/:userId" element={<UserPage />} /> 
-          <Route path="/" element={<h1>Welcome! Select Users to Begin</h1>} /> {/* Default Route */}
+          <Route path="/" element={<HomePage />} />
         </Routes>
       </div>
     </Router>

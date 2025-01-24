@@ -30,3 +30,24 @@ export const deleteCity = async (cityId) => {
     throw error;
   }
 };
+
+export const editCity = async (cityId, updatedCityData) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/cities/${cityId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCityData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update city");
+    }
+
+    return await response.json(); // Return the updated city data
+  } catch (error) {
+    console.error("Error updating city:", error);
+    throw error;
+  }
+};

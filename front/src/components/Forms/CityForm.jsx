@@ -5,7 +5,6 @@ import "./Form.scss";
 const CityForm = ({ userId, onCityAdded, cityToEdit, onEditCity, onCancelEdit }) => {
   const [cityData, setCityData] = useState({ name: "", description: "", image: "" });
 
-  // Pre-fill form fields if editing a city
   useEffect(() => {
     if (cityToEdit) {
       setCityData({
@@ -31,16 +30,13 @@ const CityForm = ({ userId, onCityAdded, cityToEdit, onEditCity, onCancelEdit })
 
     try {
       if (cityToEdit) {
-        // Update existing city
         const updatedCity = await editCity(cityToEdit._id, { ...cityData, userId });
-        onEditCity(updatedCity); // Notify parent about the updated city
+        onEditCity(updatedCity); 
       } else {
-        // Add new city
         const createdCity = await createCity({ ...cityData, userId });
-        onCityAdded(createdCity); // Notify parent about the new city
+        onCityAdded(createdCity); 
       }
 
-      // Reset form and exit edit mode
       setCityData({ name: "", description: "", image: "" });
     } catch (error) {
       console.error(cityToEdit ? "Error editing city:" : "Error adding city:", error);

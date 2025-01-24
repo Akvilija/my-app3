@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserById } from "../api/userApi";
-import { getCities, deleteCity, editCity } from "../api/cityApi"; // Includes deleteCity and editCity functions
+import { getCities, deleteCity, editCity } from "../api/cityApi"; 
 import CityForm from "../components/Forms/CityForm";
 import CitiesList from "../components/CitiesList/CitiesList";
 
@@ -11,7 +11,7 @@ const UserPage = () => {
   const [user, setUser] = useState(null);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cityToEdit, setCityToEdit] = useState(null); // Track the city being edited
+  const [cityToEdit, setCityToEdit] = useState(null);
 
   useEffect(() => {
     const fetchUserAndCities = async () => {
@@ -40,18 +40,18 @@ const UserPage = () => {
       setCities((prevCities) =>
         prevCities.map((city) => (city._id === _id ? updatedCityData : city))
       );
-      setCityToEdit(null); // Exit edit mode
+      setCityToEdit(null); 
     } catch (error) {
       console.error("Error updating city:", error);
     }
   };
 
   const startEditHandler = (city) => {
-    setCityToEdit(city); // Set the city to edit
+    setCityToEdit(city); 
   };
 
   const cancelEditHandler = () => {
-    setCityToEdit(false); // Exit edit mode without changes
+    setCityToEdit(null); 
   };
 
   const handleCityAdded = (newCity) => {
@@ -86,14 +86,14 @@ const UserPage = () => {
       <CityForm
         userId={userId}
         onCityAdded={handleCityAdded}
-        cityToEdit={cityToEdit} // Pass city to edit if in edit mode
-        onCancelEdit={cancelEditHandler} // Handle cancel edit
-        onEditCity={editCityHandler} // Handle city updates
+        cityToEdit={cityToEdit} 
+        onCancelEdit={cancelEditHandler} 
+        onEditCity={editCityHandler} 
       />
       <CitiesList
         cities={cities}
-        onDelete={handleCityDeleted} // Handle city deletion
-        onEdit={startEditHandler} // Start edit mode for a city
+        onDelete={handleCityDeleted} 
+        onEdit={startEditHandler} 
       />
       <button onClick={() => navigate(-1)} className="back-button">
         Back

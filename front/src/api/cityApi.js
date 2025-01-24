@@ -33,19 +33,17 @@ export const deleteCity = async (cityId) => {
 
 export const editCity = async (cityId, updatedCityData) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/cities/${cityId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedCityData),
-    });
+    const response = await axios.put(
+      `http://localhost:3000/api/cities/${cityId}`,
+      updatedCityData, 
+      {
+        headers: {
+          "Content-Type": "application/json", 
+        },
+      }
+    );
 
-    if (!response.ok) {
-      throw new Error("Failed to update city");
-    }
-
-    return await response.json(); // Return the updated city data
+    return response.data; 
   } catch (error) {
     console.error("Error updating city:", error);
     throw error;

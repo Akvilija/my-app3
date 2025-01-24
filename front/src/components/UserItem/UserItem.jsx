@@ -2,7 +2,7 @@ import "./UserItem.scss"
 import userLogo from "../../images/user.png"
 import { Link } from "react-router-dom";
 
-const UserItem = ({ user, onDelete }) => {
+const UserItem = ({ user, onDelete, onEdit }) => {
   return (
     <div className="user-item-container">
     <h3 className="user-name">{user.name}</h3>
@@ -14,6 +14,7 @@ const UserItem = ({ user, onDelete }) => {
     </div>
     <div className="actions">
       <button onClick={() => onDelete(user._id)}>Delete</button>
+      <button onClick={() => onEdit(user)}>Edit</button>
       <Link to={`/users/${user._id}`}>
         <button className="details">View Details</button>
       </Link>

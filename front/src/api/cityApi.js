@@ -30,3 +30,22 @@ export const deleteCity = async (cityId) => {
     throw error;
   }
 };
+
+export const editCity = async (cityId, updatedCityData) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:3000/api/cities/${cityId}`,
+      updatedCityData, 
+      {
+        headers: {
+          "Content-Type": "application/json", 
+        },
+      }
+    );
+
+    return response.data; 
+  } catch (error) {
+    console.error("Error updating city:", error);
+    throw error;
+  }
+};

@@ -1,6 +1,6 @@
 import "./CityItem.scss";
 
-const CityItem = ({ city, onDelete }) => {
+const CityItem = ({ city, onDelete, onEdit }) => {
   return (
     <div className="city-item-container">
       <h3 className="city-name">Name: {city.name}</h3>
@@ -11,6 +11,7 @@ const CityItem = ({ city, onDelete }) => {
         </div>
       </div>}
       <div className="actions">
+        <button onClick={() => onEdit(city)}>Edit</button>
         <button onClick={() => onDelete(city._id)}>Delete</button>
       </div>
     </div>

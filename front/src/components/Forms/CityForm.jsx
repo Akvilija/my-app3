@@ -1,32 +1,55 @@
-import React, { useState } from "react";
-import { createCity } from "../../api/cityApi";
+import React, { useState, useEffect } from "react";
+import { createCity, editCity } from "../../api/cityApi";
 import "./Form.scss";
 
-const CityForm = ({ userId, onCityAdded }) => {
-  const [newCity, setNewCity] = useState({ name: "", description: "", image: "" }); 
+const CityForm = ({ userId, onCityAdded, cityToEdit, onEditCity, onCancelEdit }) => {
+  const [cityData, setCityData] = useState({ name: "", description: "", image: "" });
+
+  useEffect(() => {
+    if (cityToEdit) {
+      setCityData({
+        name: cityToEdit.name || "",
+        description: cityToEdit.description || "",
+        image: cityToEdit.image || "",
+      });
+    } else {
+      setCityData({
+        name: "",
+        description: "",
+        image: "",
+      });
+    }
+  }, [cityToEdit]);
 
   const handleInputChange = (e) => {
-    setNewCity({ ...newCity, [e.target.name]: e.target.value });
+    setCityData({ ...cityData, [e.target.name]: e.target.value });
   };
 
-  const handleAddCity = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const createdCity = await createCity({ ...newCity, userId }); 
-      onCityAdded(createdCity); 
-      setNewCity({ name: "", description: "", image: "" }); 
+      if (cityToEdit) {
+        const updatedCity = await editCity(cityToEdit._id, { ...cityData, userId });
+        onEditCity(updatedCity); 
+      } else {
+        const createdCity = await createCity({ ...cityData, userId });
+        onCityAdded(createdCity); 
+      }
+
+      setCityData({ name: "", description: "", image: "" });
     } catch (error) {
-      console.error("Error adding city:", error);
+      console.error(cityToEdit ? "Error editing city:" : "Error adding city:", error);
     }
   };
 
   return (
-    <form onSubmit={handleAddCity} className="form-container">
+    <form onSubmit={handleSubmit} className="form-container">
       <input
         type="text"
         name="name"
         placeholder="City Name"
-        value={newCity.name}
+        value={cityData.name}
         onChange={handleInputChange}
         className="form-input"
       />
@@ -34,7 +57,7 @@ const CityForm = ({ userId, onCityAdded }) => {
         type="text"
         name="description"
         placeholder="City Description"
-        value={newCity.description}
+        value={cityData.description}
         onChange={handleInputChange}
         className="form-input"
       />
@@ -42,13 +65,24 @@ const CityForm = ({ userId, onCityAdded }) => {
         type="text"
         name="image"
         placeholder="Image URL"
-        value={newCity.image}
+        value={cityData.image}
         onChange={handleInputChange}
         className="form-input"
       />
-      <button type="submit" className="form-button">
-        Add City
-      </button>
+      <div className="form-actions">
+        <button type="submit" className="form-button">
+          {cityToEdit ? "Update City" : "Add City"}
+        </button>
+        {cityToEdit && (
+          <button
+            type="button"
+            onClick={onCancelEdit}
+            className="form-button cancel-button"
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </form>
   );
 };

@@ -33,10 +33,10 @@ export const createUser = async (userData) => {
 
 export const deleteUser = async (userId) => {
   try {
-    await axios.delete(`${BASE_URL}/users/${userId}`);
-    return { message: "User deleted successfully" };
+    const response = await axios.delete(`${BASE_URL}/users/${userId}`);
+    return response;
   } catch (error) {
-    console.error("Error deleting user:", error);
+    console.error(`Error deleting user with ID ${userId}:`, error);
     throw error;
   }
 };

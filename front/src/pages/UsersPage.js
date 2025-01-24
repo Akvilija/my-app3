@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import UserForm from "../components/Forms/UserForm";
 import UsersList from "../components/UsersList/UsersList";
-import { getUsers, updateUser } from "../api/userApi";
+import { getUsers, updateUser, deleteUser } from "../api/userApi";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -46,8 +46,13 @@ const UsersPage = () => {
     setUsers((prevUsers) => [newUser, ...prevUsers]);
   };
 
-  const deleteUserHandler = (userId) => {
-    setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+  const deleteUserHandler = async (userId) => {
+    try {
+      await deleteUser(userId);
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
   return (
